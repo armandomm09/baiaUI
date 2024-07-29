@@ -1,11 +1,18 @@
 import { View, Text, StyleSheet, Image, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Link, router } from 'expo-router'
+import { Link, Redirect, router } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { images } from '../constants'
 import { icons } from '../constants'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useGlobalContext } from '@/context/GlobalProvider'
+
 export default function App() {
+
+  const { isLoading, isLoggedIn} = useGlobalContext()
+
+  if(!isLoading && isLoggedIn) return <Redirect href='/home' />
+  
   return (
     <LinearGradient
       colors={['#3051e0', '#ff5e40']}

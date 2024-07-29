@@ -2,12 +2,12 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { icons, images } from '../constants'
 
-const CustomButton = ({ title, backgroundColor }) => {
+const CustomButton = ({ title, backgroundColor, onPress }) => {
   return (
     <>
       {backgroundColor === 'white' ? (
         <View className='w-full'>
-          <TouchableOpacity
+          <TouchableOpacity onPress={onPress}
             className={` flex-row flex-1 items-center justify-center py-2 rounded-lg w-full bg-gray-200 `}
           >
           <Image source={icons.googleLogo} className='h-6 w-6 mr-4' resizeMode='contain'/>
@@ -16,8 +16,8 @@ const CustomButton = ({ title, backgroundColor }) => {
         </View>
       ) : (
         <View className='w-full'>
-          <TouchableOpacity
-          activeOpacity={0.7}
+          <TouchableOpacity onPress={onPress}
+          activeOpacity={0.5}
 
             className={`flex-1 items-center justify-center py-2 rounded-lg w-full 
             ${backgroundColor === 'blue' ? ' bg-secondary' : 'bg-myblack'}

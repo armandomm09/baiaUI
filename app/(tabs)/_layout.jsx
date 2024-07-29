@@ -1,7 +1,10 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
-import { Redirect, Tabs } from 'expo-router'
+import { Redirect, Tabs, router } from 'expo-router'
 import { icons } from '../../constants'
+import NavBar from '../../components/materialApp/NavBar'
+import { useGlobalContext } from '../../context/GlobalProvider'
+import { signOut } from '../../lib/appWrite'
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
@@ -17,9 +20,23 @@ const TabIcon = ({ icon, color, name, focused }) => {
   )
 }
 
+
+
+
+
 const TabsLayout = () => {
+  const { isLoading, isLoggedIn, setIsLogged, setUser} = useGlobalContext()
+  const logOut = async () => {
+    await signOut()
+    setIsLogged(false)
+    setUser(null)
+    router.replace('/sign-in')
+  }
   return (
     <>
+    <NavBar
+      onPressIcon={logOut}
+    />
       <Tabs
       screenOptions={{ 
           tabBarShowLabel: false, 

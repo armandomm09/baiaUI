@@ -1,5 +1,5 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, ScrollView, Image, TouchableOpacity, Alert } from 'react-native'
+import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '../../constants'
 import FormField from '../../components/FormField'
@@ -7,8 +7,39 @@ import { SizedBox } from 'sizedbox'
 import CustomButton from '../../components/CustomButton'
 import { router } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient';
+import { createUser } from '../../lib/appWrite'
+import { useGlobalContext } from '../../context/GlobalProvider'
 
 const SignUp = () => {
+  const { setUser, setIsLogged } = useGlobalContext();
+
+  const [isSubmitting, setSubmitting] = useState(false);
+
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    password: "",
+    serviceName: ""
+  });
+
+  const submit = async () => {
+    if (form.username === "" || form.email === "" || form.password === "") {
+      Alert.alert("Error", "Please fill in all fields");
+    }
+
+    setSubmitting(true);
+    try {
+      const result = await createUser(form.email, form.password, form.username, form.serviceName);
+      setUser(result);
+      setIsLogged(true);
+
+      router.replace("/home");
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
   return (
     <LinearGradient
       colors={['#3051e0', '#ff5e40']}
@@ -33,18 +64,28 @@ const SignUp = () => {
               title="Name"
               placeholder='Eg. Armando'
               keyboardType="name"
+              handleTextChange={(e) => setForm({...form, username: e})}
+            />
+
+            <FormField
+              title="Nombre de tu negocio"
+              placeholder='Eg. El sabor de Tlaxcala'
+              keyboardType="serviceName"
+              handleTextChange={(e) => setForm({...form, serviceName: e})}
             />
 
             <FormField
               title="Correo"
               placeholder='Eg. baia@gmail.com'
               keyboardType="email-address"
+              handleTextChange={(e) => setForm({...form, email: e})}
             />
 
             <FormField
               title="Password"
               placeholder='Eg. 123!@#¡™£'
               keyboardType="password"
+              handleTextChange={(e) => setForm({...form, password: e})}
             />
 
             <FormField
@@ -54,6 +95,7 @@ const SignUp = () => {
             />
             <View className=' mt-2 items-center justify-center flex-1'>
               <CustomButton
+              onPress={submit}
                 title='Registrarme'
                 backgroundColor='blue'
               />

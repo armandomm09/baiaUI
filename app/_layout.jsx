@@ -2,7 +2,8 @@ import { View, Text } from 'react-native'
 import React, { useEffect } from 'react'
 import { Slot, Stack, SplashScreen } from 'expo-router'
 import { useFonts } from 'expo-font'
-
+import GlobalProvider from "../context/GlobalProvider";
+import {StatusBar} from 'expo-status-bar'
 SplashScreen.preventAutoHideAsync()
 const RootLayout = () => {
   const [fontsLoaded, error] = useFonts({
@@ -17,24 +18,33 @@ const RootLayout = () => {
     "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
   });
 
-  useEffect(() =>{
-    if(error) throw Error
-    
-    if(fontsLoaded) SplashScreen.hideAsync()
+  useEffect(() => {
+    if (error) throw Error
+
+    if (fontsLoaded) SplashScreen.hideAsync()
   }, [fontsLoaded])
 
-  if(!fontsLoaded && !error) return null 
+  if (!fontsLoaded && !error) return null
 
   return (
-    <Stack>
-      <Stack.Screen name='index' options={{headerShown: false}} />
-      <Stack.Screen
+    <GlobalProvider>
+      <Stack>
+        <Stack.Screen name='index' options={{ headerShown: false }} />
+        <Stack.Screen
           name='(auth)'
           options={{
             headerShown: false
           }}
         />
-    </Stack>
+        <Stack.Screen
+          name='(tabs)'
+          options={{
+            headerShown: false
+          }}
+        />
+      </Stack>
+      <StatusBar style='dark'/>
+    </GlobalProvider>
   )
 }
 
