@@ -7,6 +7,8 @@ import OrderClip from '../../components/SellsInfo/OrderClip';
 import { info } from '../../constants';
 import Carousel from 'react-native-reanimated-carousel'
 import { LinearGradient } from 'expo-linear-gradient'
+import StatsGraph from '../../components/SellsInfo/StatsGraph';
+import { SizedBox } from 'sizedbox';
 
 const Home = () => {
   const width = Dimensions.get('window').width;
@@ -19,25 +21,39 @@ const Home = () => {
   };
   return (
     <>
-     
+
       <SafeAreaView className='h-full'>
-        <View className='flex-1 items-center justify-center'>
+      <SizedBox vertical={8} />
+        <View className='items-center justify-center'>
+          <View className='h-[200px] '>
 
-          <Carousel className='items-center'
-            loop
-            width={width}
-            height={200}
-            autoPlay={true}
-            data={info.ordersList}
-            scrollAnimationDuration={1000}
-            renderItem={renderItem}
-            // defaultScrollOffsetValue={1}
-            mode='parallax'
-          />
+            <Carousel className='items-center'
+              loop
+              width={width}
+              height={200}
+              autoPlay={true}
+              data={info.ordersList}
+              scrollAnimationDuration={1000}
+              renderItem={renderItem}
+              // defaultScrollOffsetValue={1}
+              mode='parallax'
+            />
 
 
+          </View>
+          <SizedBox vertical={10} />
+
+          <View className='flex-row justify-between w-full px-4'>
+            <Text className='font-pmedium'>Ventas</Text>
+            <TouchableOpacity
+            activeOpacity={0.6}
+            >
+              <Text className='font-pregular text-blue-500 underline'>Ver detalle</Text>
+            </TouchableOpacity>
+          </View>
+          <StatsGraph/>
         </View>
-        </SafeAreaView>
+      </SafeAreaView>
     </>
   );
 };

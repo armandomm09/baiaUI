@@ -6,6 +6,7 @@ import { images } from '../constants'
 import { icons } from '../constants'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useGlobalContext } from '@/context/GlobalProvider'
+import {MeshGradient} from 'react-native-mesh-gradient'
 
 export default function App() {
 
@@ -13,6 +14,24 @@ export default function App() {
 
   if(!isLoading && isLoggedIn) return <Redirect href='/home' />
   
+  const points = [
+    [0.0, 0.0], [0.2, 0.0], [0.4, 0.0],
+    [0.0, 0.2], [0.2, 0.2], [0.4, 0.2],
+    [0.0, 0.4], [0.2, 0.4], [0.4, 0.4],
+];
+
+const primaryColors = [
+  "#ff5e40", "#3051e0", "#ff5e40",
+  "#3051e0", "#ff5e40", "#3051e0",
+  "#ff5e40", "#3051e0", "#ff5e40",
+];
+
+const secondaryColors = [
+  "#3051e0", "#ff5e40", "#3051e0",
+  "#ff5e40", "#3051e0", "#ff5e40",
+  "#3051e0", "#ff5e40", "#3051e0",
+];
+
   return (
     <LinearGradient
       colors={['#3051e0', '#ff5e40']}
