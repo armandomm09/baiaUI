@@ -15,7 +15,7 @@ const AppTextField = ({ title, placeholder, isPassword = false, handleTextChange
                         secureTextEntry={title === 'Password' && !showPassword}
                         className="h-10 rounded-md px-2.5 pb-2 font-bold text-sm w-full text-secondary"
                         placeholder={placeholder}
-                        placeholderTextColor="rgba(0,0,0,0.4)"
+                        placeholderTextColor="rgba(0,0,0,0.35)"
                     />
                     {title === 'Password' ? (
                         <TouchableOpacity

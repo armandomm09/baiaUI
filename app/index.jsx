@@ -6,7 +6,9 @@ import { images } from '../constants'
 import { icons } from '../constants'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useGlobalContext } from '@/context/GlobalProvider'
-import {MeshGradient} from 'react-native-mesh-gradient'
+import StatsGraph from '../components/SellsInfo/StatsGraph'
+
+
 
 export default function App() {
 
@@ -46,6 +48,7 @@ const secondaryColors = [
               <TouchableOpacity activeOpacity='0.7' onPress={() => router.push('/sign-in')}>
                 <Image source={images.logoNoBGPrimary} className=' rounded-3xl h-52 w-52' resizeMode='contain' />
               </TouchableOpacity>
+              <StatsGraph />
             </View>
           </View>
         </ScrollView>
